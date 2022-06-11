@@ -2,11 +2,16 @@
 
 ## Information
 - Developed by MERN stack
-- CS731 Project - phase 1
+- CS731 Project - phase 2
 - MohammadHasan Payandeh
 - mpu236@uregina.ca
 
-## Features list
+## Features list - Phase 2
+- The ability for restaurants' owners to answer comments
+- Notification for the restaurants' owners to see if they have any unanswered comments
+- Distinguishing the current cusotmer users from others' comments in the food(post) page
+
+## Features list - Phase 1
 - account creation (customers and restaurants owners)
 - login and logout
 - post media content (image and text) by retaurants owners
