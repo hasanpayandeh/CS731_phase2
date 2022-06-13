@@ -14,6 +14,10 @@ const commentsSchema = mongoose.Schema({
     msg: {
         type: String,
         required: [true, 'Please add a text value']
+    },
+    answer: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

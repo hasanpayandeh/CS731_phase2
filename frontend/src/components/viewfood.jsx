@@ -66,19 +66,22 @@ const ViewFood = (props) => {
     
     const Comments = () => {
 
-        const Comment = (props) => {
-            const d = new Date( props.comment.createdAt );
+        const Comment = ({comment}) => {
+            const d = new Date( comment.createdAt );
             return (
                 <>
-                    <Paper flexGrow={1} elevation={3} sx={{textAlign: "left", padding: 2, border: "1px solid #333", backgroundColor: "#fff", mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
+                    <Paper flexGrow={1} elevation={3} sx={{textAlign: "left", padding: 2, border: (comment.userId!=null&&comment.userId._id==props.user._id ? "5px solid #333" : "1px solid #333"), backgroundColor: (comment.userId!=null&&comment.userId._id==props.user._id ? "#d7b0b0" : "#fff"), mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
                         <Grid container>
-                            <Grid xs={2} item> <AccountCircleIcon sx={{verticalAlign: "middle"}}/> &nbsp; <b>{(props.comment.userId!=null ? props.comment.userId.username : 'Unknown')}</b></Grid>
+                            <Grid xs={2} item> <AccountCircleIcon sx={{verticalAlign: "middle"}}/> &nbsp; <b>{(comment.userId!=null ? (comment.userId._id==props.user._id ? <span style={{color: "#c70000"}}>YOU</span> : comment.userId.username) : 'Unknown')}</b></Grid>
                             <Grid xs={6} item>
-                                {props.comment.msg} 
+                                {comment.msg} 
                             </Grid>
                             <Grid xs={4} item style={{textAlign: "right"}}>
                                 {d!="Invalid Date" ? <><DateRangeIcon sx={{verticalAlign: "middle"}}/> {d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()}</> : ''}
                             </Grid>
+                            {comment.answer!=null&&comment.answer!="" ? <Grid xs={12} item sx={{color: "#c70000", mt: 1}}>
+                                <b>Answer:</b> {comment.answer}
+                            </Grid> : ''}
                         </Grid>
                     </Paper>
                 </>
@@ -156,7 +159,7 @@ const ViewFood = (props) => {
                         variant="contained"
                         sx={{ mt: 0, mb: 0 }}
                         >
-                        SEND
+                        COMMENT
                         </Button>
                     </Box>
                 </Paper>
