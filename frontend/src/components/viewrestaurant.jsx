@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Box, Button, Grid, Typography, Card, CardActions, CardContent, Paper, CardMedia } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -11,6 +11,8 @@ import Footer from './footer';
 import Loading from './loading';
 
 const ViewRestaurant = (props) => {
+    const getParams = useParams();
+
     const navigate = useNavigate();
 
     if(props.user._id==""||props.user._id==null) {
@@ -18,13 +20,29 @@ const ViewRestaurant = (props) => {
         process.exit();
     }
 
-    var owner = localStorage.getItem('owner');
-    if(owner==""||owner==null) {
-        navigate("/restaurants");
-    }
-    else {
-        owner = JSON.parse(owner);
-    }
+    // var owner = localStorage.getItem('owner');
+    const [owner, setOwner] = useState("");
+    useEffect(()=>{
+        async function getData() {
+            setLoading(true);
+
+            const response = await fetch(`http://localhost:5000/users/ownerinfo/${getParams.id}`);
+            const record = await response.json();
+            setOwner(record[0]);
+            setLoading(false);
+        }
+    
+        getData();
+    }, [])
+    // console.log(owner);
+    //////////////
+
+    // if(owner._id==""||owner._id==null) {
+    //     navigate("/restaurants");
+    // }
+    // else {
+    //     // owner = JSON.parse(owner);
+    // }
     
     const [cards, setCards] = useState([]);
     const [checkUserVoted, setCheckUserVoted] = useState(0);
@@ -44,16 +62,16 @@ const ViewRestaurant = (props) => {
             setLoading(false);
         }
     
-        getRecords();
+        if(owner._id!=""&&owner._id!=null) getRecords();
     
         return;
-    }, [cards.length, checkUserVoted]);
+    }, [cards.length, checkUserVoted, owner]);
 
     const viewButton = (food) => {
         var foodnew = food;
         foodnew.ownerName= owner.name;
-        localStorage.setItem('food', JSON.stringify(foodnew));
-        navigate("/viewfood");
+        // localStorage.setItem('food', JSON.stringify(foodnew));
+        navigate("/viewfood/"+foodnew._id);
     }
 
 
@@ -172,7 +190,7 @@ const ViewRestaurant = (props) => {
                 <Grid container spacing={4}>
                     {cards.map((card, index) => {
                         return (
-                            <CardCreator card={card} sortnumber={index+1}/>
+                            <CardCreator key={card._id} card={card} sortnumber={index+1}/>
                         );
                     })}
                 </Grid>

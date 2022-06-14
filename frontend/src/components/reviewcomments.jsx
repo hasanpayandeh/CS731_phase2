@@ -120,7 +120,7 @@ const ReviewComments = (props) => {
             const d = new Date( props.comment.createdAt );
             return (
                 <>
-                    <Paper flexGrow={1} elevation={3} sx={{textAlign: "left", padding: 2, border: "1px solid #333", backgroundColor: "#fff", mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
+                    <Paper elevation={3} sx={{textAlign: "left", padding: 2, border: "1px solid #333", backgroundColor: "#fff", mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
                         <Grid container>
                             <Grid xs={2} item> <AccountCircleIcon sx={{verticalAlign: "middle"}}/> &nbsp; <b>{(props.comment.userId!=null ? props.comment.userId.username : 'Unknown')}</b></Grid>
                             <Grid xs={6} item>
@@ -173,7 +173,7 @@ const ReviewComments = (props) => {
                     <Typography variant="h5">Unanswered Comments:</Typography> 
                     {comments.map((comment) => {
                         return (
-                            <Comment comment={comment}/>
+                            <Comment key={comment._id} comment={comment}/>
                         );
                     })}
                     {comments.length==0 ? <Typography variant="h7">No Comments found</Typography> : ''}

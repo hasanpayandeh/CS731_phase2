@@ -6,7 +6,7 @@
 */
 
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import {Helmet} from 'react-helmet';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
 import Home from './components/home';
 import Signup from './components/signup';
 import Login from './components/login';
@@ -48,27 +48,29 @@ const userobj=(localStorage.getItem('user')!=""&&localStorage.getItem('user')!=n
 const App = () => {
   return (
     <>
-      <Helmet>
-          <meta charSet="utf-8" />
-          <title>Food Social Media</title>
-          <style>{"body { background-color: #ddd; }"}</style>
-      </Helmet>
-      <ThemeProvider theme={theme}>
-        <Router>
-            <Routes>
-              <Route path='/' element={<Home user={userobj}/>} />
-              <Route path='/signup' element={<Signup user={userobj} />} />
-              <Route path='/login' element={<Login user={userobj} />} />
-              <Route path='/logout' element={<Logout user={userobj}/>} />
-              <Route path='/restaurants' element={<Restaurants user={userobj} />} />
-              <Route path='/viewrestaurant' element={<ViewRestaurant user={userobj} />} />
-              <Route path='/viewfood' element={<ViewFood user={userobj} />} />
-              <Route path='/manage' element={<Manage user={userobj} />} />
-              <Route path='/addpost' element={<AddPost user={userobj} />} />
-              <Route path='/reviewcomments' element={<ReviewComments user={userobj} />} />
-            </Routes>
-        </Router>
-      </ThemeProvider>
+      <HelmetProvider>
+          <Helmet>
+              <meta charSet="utf-8" />
+              <title>Food Social Media</title>
+              <style>{"body { background-color: #ddd; }"}</style>
+          </Helmet>
+          <ThemeProvider theme={theme}>
+            <Router>
+                <Routes>
+                  <Route path='/' element={<Home user={userobj}/>} />
+                  <Route path='/signup' element={<Signup user={userobj} />} />
+                  <Route path='/login' element={<Login user={userobj} />} />
+                  <Route path='/logout' element={<Logout user={userobj}/>} />
+                  <Route path='/restaurants' element={<Restaurants user={userobj} />} />
+                  <Route path='/viewrestaurant/:id' element={<ViewRestaurant user={userobj} />} />
+                  <Route path='/viewfood/:id' element={<ViewFood user={userobj} />} />
+                  <Route path='/manage' element={<Manage user={userobj} />} />
+                  <Route path='/addpost' element={<AddPost user={userobj} />} />
+                  <Route path='/reviewcomments' element={<ReviewComments user={userobj} />} />
+                </Routes>
+            </Router>
+          </ThemeProvider>
+        </HelmetProvider>
     </>
   );
 }

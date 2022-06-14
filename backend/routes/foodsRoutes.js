@@ -7,6 +7,11 @@ const asyncHandler = require('express-async-handler');
 const Foods = require("../model/foodsModel");
 const Users = require("../model/usersModel");
 
+router.get('/foodinfo/:id', asyncHandler(async (req, res) => {
+    const fooditem = await Foods.find({_id: req.params.id}).populate({path:'ownerId'});
+    res.status(200).json(fooditem);
+}));
+
 router.post('/add', asyncHandler(async (req, res) => {
     const {title, desc, ownerId, image} = req.body;
     var err=0;

@@ -89,7 +89,7 @@ router.post('/signup', asyncHandler(async (req, res) => {
 
     if(userExists) {
         res.status(400).json({"error": "Username already exists. Try another one"});
-    } else if(email!=""&&!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email))) {
+    } else if(email!=""&&!(/^[a-zA-Z0-9._]+@[a-zA-Z0-9._]+\.[A-Za-z]+$/.test(email))) {
         res.status(400).json({"error": "Please enter your email correctly"});
     } else if(email!=""&&email!=null&&emailExists) {
         res.status(400).json({"error": "Email already exists. Try another one"});

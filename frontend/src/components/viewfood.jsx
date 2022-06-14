@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Box, Button, TextField, Grid, Typography, Alert, CardMedia, Paper  } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -13,6 +13,8 @@ import Loading from './loading';
 import noImage from '../assets/noimage.jpg'
 
 const ViewFood = (props) => {
+    const getParams = useParams();
+
     const navigate = useNavigate();
 
     if(props.user._id==""||props.user._id==null) {
@@ -20,13 +22,26 @@ const ViewFood = (props) => {
         process.exit();
     }
 
-    var food = localStorage.getItem('food');
-    if(food==""||food==null) {
-        navigate("/restaurants");
-    }
-    else {
-        food = JSON.parse(food);
-    }
+    // var food = localStorage.getItem('food');
+    const [food, setFood] = useState("");
+    useEffect(()=>{
+        async function getData() {
+            setLoading(true);
+
+            const response = await fetch(`http://localhost:5000/foods/foodinfo/${getParams.id}`);
+            const record = await response.json();
+            setFood(record[0]);
+            setLoading(false);
+        }
+    
+        getData();
+    }, [])
+    // if(food._id==""||food._id==null) {
+    //     navigate("/restaurants");
+    // }
+    // else {
+    //     // food = JSON.parse(food);
+    // }
     
     const [comments, setComments] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -49,10 +64,10 @@ const ViewFood = (props) => {
             setLoading(false);
         }
     
-        getRecords();
+        if(food._id!=""&&food._id!=null) getRecords();
 
         return;
-    }, [comments.length]);
+    }, [comments.length, food]);
 
     const TextBoxes = (props) => {
         return (
@@ -70,7 +85,7 @@ const ViewFood = (props) => {
             const d = new Date( comment.createdAt );
             return (
                 <>
-                    <Paper flexGrow={1} elevation={3} sx={{textAlign: "left", padding: 2, border: (comment.userId!=null&&comment.userId._id==props.user._id ? "5px solid #333" : "1px solid #333"), backgroundColor: (comment.userId!=null&&comment.userId._id==props.user._id ? "#d7b0b0" : "#fff"), mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
+                    <Paper elevation={3} sx={{textAlign: "left", padding: 2, border: (comment.userId!=null&&comment.userId._id==props.user._id ? "5px solid #333" : "1px solid #333"), backgroundColor: (comment.userId!=null&&comment.userId._id==props.user._id ? "#d7b0b0" : "#fff"), mt: 2, display: "flex", alignItems: "center", fontSize: "14px"}}>
                         <Grid container>
                             <Grid xs={2} item> <AccountCircleIcon sx={{verticalAlign: "middle"}}/> &nbsp; <b>{(comment.userId!=null ? (comment.userId._id==props.user._id ? <span style={{color: "#c70000"}}>YOU</span> : comment.userId.username) : 'Unknown')}</b></Grid>
                             <Grid xs={6} item>
@@ -94,7 +109,7 @@ const ViewFood = (props) => {
                     <Typography variant="h6">Comments: </Typography>
                     {comments.map((comment) => {
                         return (
-                            <Comment comment={comment}/>
+                            <Comment key={comment._id} comment={comment}/>
                         );
                     })}
                     {comments.length==0 ? <Typography variant="h7">No Comments found</Typography> : ''}
@@ -189,7 +204,7 @@ const ViewFood = (props) => {
                     </Grid>
                     <Grid item xs={5}>
                         <TextBoxes title="Title" value={food.title} />
-                        <TextBoxes title="Restaurant Name" value={food.ownerName} />
+                        <TextBoxes title="Restaurant Name" value={food.ownerId!==undefined ? food.ownerId.username : ''} />
                         <TextBoxes title="Description" value={food.desc} />
                     </Grid>
                     <Grid item xs={8}>

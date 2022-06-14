@@ -42,8 +42,8 @@ const Restaurants = (props) => {
     }, [cards.length]);
 
     const viewButton = (owner) => {
-        localStorage.setItem('owner', JSON.stringify(owner));
-        navigate("/viewrestaurant");
+        // localStorage.setItem('owner', JSON.stringify(owner));
+        navigate("/viewrestaurant/"+owner._id);
     }
 
     const CardCreator = (props) => {
@@ -86,7 +86,7 @@ const Restaurants = (props) => {
             {/* End hero unit */}
             <Grid container spacing={4}>
                 {cards.map((card) => (
-                    <CardCreator card={card}/>
+                    <CardCreator key={card._id} card={card}/>
                 ))}
             </Grid>
             </Container>

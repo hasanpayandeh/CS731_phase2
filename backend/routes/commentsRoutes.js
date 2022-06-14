@@ -49,7 +49,7 @@ router.post('/send', asyncHandler(async (req, res) => {
             msg: msg
         });
 
-        res.status(201).json(sendComment.populate({path:'userId', select:['username']}));
+        res.status(200).json(sendComment.populate({path:'userId', select:['username']}));
     }
 }));
 
@@ -86,7 +86,7 @@ router.post('/answer', asyncHandler(async (req, res) => {
 
         var theCommentId = await Comments.findByIdAndUpdate(comment._id,{answer: answer});
 
-        res.status(201).json(theCommentId._id);
+        res.status(200).json(theCommentId._id);
     }
 }));
 
@@ -108,7 +108,7 @@ router.post('/remove', asyncHandler(async (req, res) => {
         var theCommentId = comment;
             await comment.remove();
 
-        res.status(201).json(theCommentId._id);
+        res.status(200).json(theCommentId._id);
     }
 }));
 
