@@ -75,7 +75,7 @@ const Manage = (props) => {
 
                 <Grid container style={{justifyContent: "center"}} spacing={2}>
                     <ManageButtons title="Add Post (Food)" icon={(<AddCircleOutlineIcon/>)} link="/addpost"/>
-                    <ManageButtons title="Food ranking" icon={(<BarChartIcon/>)} link="/viewrestaurant"/>
+                    <ManageButtons title="Food ranking" icon={(<BarChartIcon/>)} link={"/viewrestaurant/"+props.user._id}/>
                     <ManageButtons title="Review and answer Comments" icon={(<QuestionAnswerIcon/>)} link="/reviewcomments"/>
                     <ManageButtons title="LOGOUT" icon={(<LogoutTwoToneIcon/>)} link="/logout"/>
                 </Grid>

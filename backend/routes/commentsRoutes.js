@@ -59,7 +59,7 @@ router.get('/ownerlist/:ownerId', asyncHandler(async (req, res) => {
     for(var i=0; i<foodslist2.length; i++) {
         foodslist.push(foodslist2[i]._id);
     }
-    var comments = await Comments.find({foodId: {$in: foodslist}, answer: {$in: (null, "")}}).populate({path:'userId', select:['username']}).populate({path:'foodId', select:['title']});
+    var comments = await Comments.find({foodId: {$in: foodslist}, answer: {$exists: false}}).populate({path:'userId', select:['username']}).populate({path:'foodId', select:['title']});
     res.status(200).json(comments);
 }));
 
@@ -118,7 +118,7 @@ router.get('/unansweredcommentscount/:ownerId', asyncHandler(async (req, res) =>
     for(var i=0; i<foodslist2.length; i++) {
         foodslist.push(foodslist2[i]._id);
     }
-    var comments = await Comments.find({foodId: {$in: foodslist}, answer: {$in: (null, "")}});
+    var comments = await Comments.find({foodId: {$in: foodslist}, answer: {$exists: false}});
     res.status(200).json(comments.length);
 }));
 
