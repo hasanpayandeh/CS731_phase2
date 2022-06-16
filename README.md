@@ -17,7 +17,7 @@
 ## Features list - Phase 2
 - The ability for restaurants' owners to answer comments
 - Notification for the restaurants' owners to see if they have any unanswered comments
-- Distinguishing the current cusotmer users from others' comments in the food(post) page
+- Distinguishing the current cusotmer comments from others' comments in the food(post) page
 
 ## Features list - Phase 1
 - account creation (customers and restaurants owners)
