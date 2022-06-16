@@ -104,7 +104,7 @@ const Signup = (props) => {
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">SIGNUP Type</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Customer or Restaurant owner?</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -163,7 +163,7 @@ const Signup = (props) => {
                         name="name"
                         autoComplete="name"
                         />
-                        <Box className="uploadimagebox" textAlign={"left"}>
+                        <Box className="uploadimagebox" textAlign={"left"} style={{display: (signupType=="customer" ? "none" : "block")}}>
                             <label htmlFor="contained-button-file">
                                 {signupType=="customer" ? "Avatar Image" : "Restaurant Image"}: &nbsp;
                                 <input accept="image/*" style={{display: "none"}} id="contained-button-file" multiple type="file" onChange={(e) => {uploadImage(e); setImageFileName(document.getElementById("contained-button-file").value)}} />

@@ -128,7 +128,9 @@ const ReviewComments = (props) => {
                                 {props.comment.msg}
                             </Grid>
                             <Grid xs={4} item style={{textAlign: "right"}}>
-                                {d!="Invalid Date" ? <><DateRangeIcon sx={{verticalAlign: "middle"}}/> {d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()}</> : ''}
+                                <Box style={{textAlign: "left", display: "inline-block", width: 180}}>
+                                    {d!="Invalid Date" ? <><DateRangeIcon sx={{verticalAlign: "middle"}}/> {String(d.getHours()).padStart(2, '0') + ":" + String(d.getMinutes()).padStart(2, '0') + ", " + d.toDateString()}</> : ''}
+                                </Box>
                             </Grid>
                             <Grid xs={12} item>
                                 <TextField
