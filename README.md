@@ -1,5 +1,11 @@
 # Food Social Media
 
+## Information
+- Developed by MERN stack
+- CS731 Project - phase 2
+- MohammadHasan Payandeh
+- mpu236@uregina.ca
+
 ## Test accounts:
 ### Customer:
 #### username: user111
@@ -7,12 +13,6 @@
 ### Restaurant owner:
 #### username: mcdonalds
 #### password: 123456
-
-## Information
-- Developed by MERN stack
-- CS731 Project - phase 2
-- MohammadHasan Payandeh
-- mpu236@uregina.ca
 
 ## Features list - Phase 2
 - The ability for restaurants' owners to answer comments
