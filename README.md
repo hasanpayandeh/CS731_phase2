@@ -1,5 +1,13 @@
 # Food Social Media
 
+## Test accounts:
+### Customer:
+#### username: user111
+#### password: 123456
+### Restaurant owner:
+#### username: mcdonalds
+#### password: 123456
+
 ## Information
 - Developed by MERN stack
 - CS731 Project - phase 2
